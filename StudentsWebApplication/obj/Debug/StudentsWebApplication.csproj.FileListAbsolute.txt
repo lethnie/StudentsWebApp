@@ -13,6 +13,5 @@ D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\N
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\System.Net.Http.Formatting.xml
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\System.Web.Http.xml
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\System.Web.Http.WebHost.xml
-D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\obj\Debug\StudentsWebApplication.csprojResolveAssemblyReference.cache
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\obj\Debug\StudentsWebApplication.dll
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\obj\Debug\StudentsWebApplication.pdb

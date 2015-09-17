@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Students App</title>
+</head>
+<body>
+    <div>
+        <h2>All Students</h2>
+        <ul id="students" />
+    </div>
+    <div>
+        <h2>Search by ID</h2>
+        <input type="text" id="studId" size="5" />
+        <input type="button" value="Search" onclick="find();" />
+        <p id="student" />
+    </div>
+
+    <script src="Scripts/jquery-2.1.4.min.js"></script>
+    <script>
+        var uri = 'api/students';
+
+        $(document).ready(function () {
+            $.getJSON(uri)
+                .done(function (data) {
+                    var arr = $.parseJSON(data);
+                    $.each(arr, function (key, item) {
+                        $('<li>', { text: formatItem(item) }).appendTo($('#students'));
+                    });
+                });
+        });
+
+        function formatItem(item) {
+            return item.Name + ': ' + item.Age;
+        }
+
+        function find() {
+            var id = $('#studId').val();
+            $.getJSON(uri + '/' + id)
+                .done(function (data) {
+                    var arr = $.parseJSON(data);
+                    $('#student').text(formatItem(arr));
+                })
+                .fail(function (jqXHR, textStatus, err) {
+                    $('#student').text('Error: ' + err);
+                });
+        }
+    </script>
+</body>
+</html>
