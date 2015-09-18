@@ -29,6 +29,8 @@
                 <tr ng-repeat="s in students">
                     <td><p>{{s.Name}}</p></td>
                     <td><p>{{s.Age}}</p></td>
+                    <td><button>Изменить</button></td>
+                    <td><button ng-click="deleteStudent(s.Id)">Удалить</button></td>
                 </tr>
             </tbody>
         </table>
@@ -46,6 +48,8 @@
                 <tr ng-repeat="s in courses">
                     <td><p>{{s.Title}}</p></td>
                     <td><p>{{s.Lecturer}}</p></td>
+                    <td><button>Изменить</button></td>
+                    <td><button ng-click="deleteCourse(s.Id)">Удалить</button></td>
                 </tr>
             </tbody>
         </table>
@@ -63,6 +67,8 @@
                 <tr ng-repeat="s in students_courses">
                     <td><p>{{s.Name}}</p></td>
                     <td><p>{{s.Title}}</p></td>
+                    <td><button>Изменить</button></td>
+                    <td><button ng-click="deleteStudentCourse(s.Id)">Удалить</button></td>
                 </tr>
             </tbody>
         </table>

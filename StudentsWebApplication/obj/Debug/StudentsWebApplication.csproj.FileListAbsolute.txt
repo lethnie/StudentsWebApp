@@ -16,3 +16,5 @@ D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\S
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\obj\Debug\StudentsWebApplication.dll
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\obj\Debug\StudentsWebApplication.pdb
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\obj\Debug\StudentsWebApplication.csprojResolveAssemblyReference.cache
+D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\EntityFramework.Extended.dll
+D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\EntityFramework.Extended.xml

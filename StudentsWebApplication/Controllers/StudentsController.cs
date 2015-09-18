@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using StudentsWebApplication.Models;
 using Newtonsoft.Json;
+using EntityFramework.Extensions;
 
 namespace StudentsWebApplication.Controllers
 {
@@ -17,6 +18,28 @@ namespace StudentsWebApplication.Controllers
         {
             var students = dbContext.Students.Select(s => new { s.Id, s.Name, s.Age });
             return JsonConvert.SerializeObject(students);
+        }
+
+        public String DeleteStudent(int id)
+        {
+            int st = dbContext.Students.Where(s => s.Id == id).Delete();
+            string result;
+            if (st < 0)
+                result = "Указанный студент отсутствует в базе данных";
+            else
+                result = "Студент с идентификатором " + st + " удалён из базы данных";
+            return result;
+        }
+
+        public String UpdateStudent(int id, string name, Nullable<int> age)
+        {
+            int st = dbContext.Students.Where(s => s.Id == id).Update(s => new Student { Name = name, Age = age });
+            string result;
+            if (st < 0)
+                result = "Указанный студент отсутствует в базе данных";
+            else
+                result = "Студент с идентификатором " + st + " изменён";
+            return result;
         }
 
         public IHttpActionResult GetStudent(int id)
