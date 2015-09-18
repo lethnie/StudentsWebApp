@@ -5,10 +5,6 @@
 </head>
 <body>
     <div>
-        <h2>All Students</h2>
-        <ul id="students" />
-    </div>
-    <div>
         <h2>Search by ID</h2>
         <input type="text" id="studId" size="5" />
         <input type="button" value="Search" onclick="find();" />
@@ -16,7 +12,17 @@
     </div>
 
     <script src="Scripts/jquery-2.1.4.min.js"></script>
-    <script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/app/students-controller.js"></script>
+
+    <div ng-app="StudApp" ng-controller="StudController">
+        <h2>All Students</h2>
+        <!--<ul id="students" />-->
+        <li ng-repeat="s in students">
+            {{ s.Name + ', ' + s.Age }}
+        </li>
+    </div>
+    <!--<script>
         var uri = 'api/students';
 
         $(document).ready(function () {
@@ -44,6 +50,6 @@
                     $('#student').text('Error: ' + err);
                 });
         }
-    </script>
+    </script>-->
 </body>
 </html>

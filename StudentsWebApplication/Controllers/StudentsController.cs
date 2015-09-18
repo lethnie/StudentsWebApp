@@ -15,7 +15,7 @@ namespace StudentsWebApplication.Controllers
 
         public String GetAllStudents()
         {
-            var students = dbContext.Students.Select(s => new { s.Name, s.Age });
+            var students = dbContext.Students.Select(s => new { s.Id, s.Name, s.Age });
             return JsonConvert.SerializeObject(students);
         }
 
