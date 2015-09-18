@@ -4,12 +4,12 @@
     <title>Students App</title>
 </head>
 <body>
-    <div>
+    <!--<div>
         <h2>Search by ID</h2>
         <input type="text" id="studId" size="5" />
         <input type="button" value="Search" onclick="find();" />
         <p id="student" />
-    </div>
+    </div>-->
 
     <script src="Scripts/jquery-2.1.4.min.js"></script>
     <script src="Scripts/angular.min.js"></script>
@@ -17,10 +17,55 @@
 
     <div ng-app="StudApp" ng-controller="StudController">
         <h2>All Students</h2>
-        <!--<ul id="students" />-->
-        <li ng-repeat="s in students">
-            {{ s.Name + ', ' + s.Age }}
-        </li>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="s in students">
+                    <td><p>{{s.Name}}</p></td>
+                    <td><p>{{s.Age}}</p></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>All Courses</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Lecturer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="s in courses">
+                    <td><p>{{s.Title}}</p></td>
+                    <td><p>{{s.Lecturer}}</p></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Students and Courses</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Course</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="s in students_courses">
+                    <td><p>{{s.Name}}</p></td>
+                    <td><p>{{s.Title}}</p></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <!--<script>
         var uri = 'api/students';

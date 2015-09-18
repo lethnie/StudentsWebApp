@@ -9,7 +9,7 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         .success(function (courses) {
             $scope.courses = $.parseJSON(courses);
         });
-    $http.get('api/students-courses')
+    $http.get('api/studentscourses')
         .success(function (students_courses) {
             $scope.students_courses = $.parseJSON(students_courses);
         });
