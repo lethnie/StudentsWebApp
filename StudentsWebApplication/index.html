@@ -4,75 +4,103 @@
     <title>Students App</title>
 </head>
 <body>
-    <!--<div>
-        <h2>Search by ID</h2>
-        <input type="text" id="studId" size="5" />
-        <input type="button" value="Search" onclick="find();" />
-        <p id="student" />
-    </div>-->
-
     <script src="Scripts/jquery-2.1.4.min.js"></script>
     <script src="Scripts/angular.min.js"></script>
     <script src="Scripts/app/students-controller.js"></script>
 
+    
     <div ng-app="StudApp" ng-controller="StudController">
-        <h2>All Students</h2>
+        <form>
+            <h2>All Students</h2>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Age</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="s in students">
-                    <td><p>{{s.Name}}</p></td>
-                    <td><p>{{s.Age}}</p></td>
-                    <td><button>Изменить</button></td>
-                    <td><button ng-click="deleteStudent(s.Id)">Удалить</button></td>
-                </tr>
-            </tbody>
-        </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="s in students">
+                        <td><p>{{s.Name}}</p></td>
+                        <td><p>{{s.Age}}</p></td>
+                        <td><button ng-click="editStudent(s)">Изменить</button></td>
+                        <td><button ng-click="deleteStudent(s.Id)">Удалить</button></td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <h2>All Courses</h2>
+            <h2>All Courses</h2>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Lecturer</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="s in courses">
-                    <td><p>{{s.Title}}</p></td>
-                    <td><p>{{s.Lecturer}}</p></td>
-                    <td><button>Изменить</button></td>
-                    <td><button ng-click="deleteCourse(s.Id)">Удалить</button></td>
-                </tr>
-            </tbody>
-        </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Lecturer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="s in courses">
+                        <td><p>{{s.Title}}</p></td>
+                        <td><p>{{s.Lecturer}}</p></td>
+                        <td><button>Изменить</button></td>
+                        <td><button ng-click="deleteCourse(s.Id)">Удалить</button></td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <h2>Students and Courses</h2>
+            <h2>Students and Courses</h2>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Course</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="s in students_courses">
-                    <td><p>{{s.Name}}</p></td>
-                    <td><p>{{s.Title}}</p></td>
-                    <td><button>Изменить</button></td>
-                    <td><button ng-click="deleteStudentCourse(s.Id)">Удалить</button></td>
-                </tr>
-            </tbody>
-        </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Course</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="s in students_courses">
+                        <td><p>{{s.Name}}</p></td>
+                        <td><p>{{s.Title}}</p></td>
+                        <td><button>Изменить</button></td>
+                        <td><button ng-click="deleteStudentCourse(s.Id)">Удалить</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+
+        <form id="edit_student_form" style="visibility:hidden">
+            ФИО:<br>
+            <input type="text" ng-model="selectedStudent.Name"><br>
+            Возраст:<br>
+            <input type="number" ng-model="selectedStudent.Age">
+            <br><br>
+            <button ng-click="updateStudent()">Сохранить</button>
+        </form>
+
+        <form id="edit_course_form" style="visibility:hidden">
+            ФИО:<br>
+            <input type="text" ng-model="selectedCourse.Title"><br>
+            Возраст:<br>
+            <input type="text" ng-model="selectedCourse.Lecturer">
+            <br><br>
+            <button ng-click="updateCourse()">Сохранить</button>
+        </form>
+
+        <form id="edit_student_course_form" style="visibility:hidden">
+            ФИО:<br>
+            <input type="number" ng-model="selectedStudentCourse.StudentId"><br>
+            Возраст:<br>
+            <input type="number" ng-model="selectedStudentCourse.CourseId">
+            <br><br>
+            <button ng-click="updateStudentCourse()">Сохранить</button>
+        </form>
+
     </div>
+
+
+    
+
     <!--<script>
         var uri = 'api/students';
 

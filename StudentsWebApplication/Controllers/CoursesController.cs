@@ -14,11 +14,13 @@ namespace StudentsWebApplication.Controllers
     {
         StudentsDbEntities dbContext = new StudentsDbEntities();
 
+        [HttpGet]
         public IHttpActionResult GetAllCourses()
         {
             return Ok(dbContext.Courses.Select(s => new { s.Id, s.Title, s.Lecturer }));
         }
 
+        [HttpDelete]
         public IHttpActionResult DeleteCourse(int id)
         {
             int c = dbContext.Courses.Where(s => s.Id == id).Delete();
@@ -28,13 +30,18 @@ namespace StudentsWebApplication.Controllers
                 return Ok();
         }
 
-        public IHttpActionResult UpdateCourse(int id, string title, string lecturer)
+        [HttpPut]
+        public IHttpActionResult UpdateCourse(int id, Course course)
         {
-            int c = dbContext.Courses.Where(s => s.Id == id).Update(s => new Course { Title = title, Lecturer = lecturer });
-            if (c == 0)
-                return NotFound();
-            else
-                return Ok();
+            course.Id = id;
+
+            dbContext.Courses.Attach(course);
+            var entry = dbContext.Entry(course);
+            entry.Property(s => s.Title).IsModified = true;
+            entry.Property(s => s.Lecturer).IsModified = true;
+            dbContext.SaveChanges();
+
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

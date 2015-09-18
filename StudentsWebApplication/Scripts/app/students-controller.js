@@ -19,9 +19,9 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
             })
     };
     $scope.updateStudent = function () {
-        $http.put('api/students/' + studId, name, age)
+        $http.put('api/students/' + $scope.selectedStudent.Id, $scope.selectedStudent)//{ "id": $scope.selectedStudent.Id, "name": name, "age": age })
             .success(function () {
-                alert("Студент с идентификатором " + studId + " успешно изменён.");
+                alert("Студент с идентификатором " + $scope.selectedStudent.Id + " успешно изменён.");
                 $http.get('api/students')
                     .success(function (students) {
                         $scope.students = students;
@@ -30,7 +30,14 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
             .error(function () {
                 alert("Ошибка! Студент с идентификатором " + studId + " не был изменён");
             });
+        document.getElementById('edit_student_form').style.visibility='hidden';
     };
+    $scope.editStudent = function (student) {
+        $scope.selectedStudent = student;
+        document.getElementById('edit_student_form').style.visibility = 'visible';
+    };
+
+
 
     $http.get('api/courses')
         .success(function (courses) {
@@ -50,9 +57,9 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
             });
     };
     $scope.updateCourse = function () {
-        $http.put('api/courses/' + courseId, title, lecturer)
+        $http.put('api/courses/' + $scope.selectedCourse.Id, $scope.selectedCourse)
             .success(function () {
-                alert("Курс с идентификатором " + courseId + " успешно изменён.");
+                alert("Курс с идентификатором " + $scope.selectedCourse.Id + " успешно изменён.");
                 $http.get('api/courses')
                     .success(function (courses) {
                         $scope.courses = courses;
@@ -61,6 +68,11 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
             .error(function () {
                 alert("Ошибка! Курс с идентификатором " + courseId + " не был изменён.");
             });
+        document.getElementById('edit_student_course_form').style.visibility = 'hidden';
+    };
+    $scope.editCourse = function (course) {
+        $scope.selectedCourse = course;
+        document.getElementById('edit_course_form').style.visibility = 'visible';
     };
 
 
@@ -82,7 +94,7 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
             });
     };
     $scope.updateStudentCourse = function () {
-        $http.put('api/studentscourses/' + studentscoursesId, studId, courseId)
+        $http.put('api/studentscourses/' + $scope.selectedStudentCourse.Id, $scope.selectedStudentCourse)
             .success(function () {
                 alert("Соответствие студента и курса с идентификатором " + studentscoursesId + " успешно изменено.");
                 $http.get('api/studentscourses')
@@ -93,5 +105,10 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
             .error(function () {
                 alert("Ошибка! Соответствие студента и курса с идентификатором " + studentscoursesId + " не было изменено.");
             });
+        document.getElementById('edit_student_course_form').style.visibility = 'hidden';
+    };
+    $scope.editStudentCourse = function (student_course) {
+        $scope.selectedStudentCourse = student_course;
+        document.getElementById('edit_student_course_form').style.visibility = 'visible';
     };
 }]);

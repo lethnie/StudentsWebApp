@@ -14,11 +14,13 @@ namespace StudentsWebApplication.Controllers
     {
         StudentsDbEntities dbContext = new StudentsDbEntities();
 
+        [HttpGet]
         public IHttpActionResult GetStudents()
         {
             return Ok(dbContext.Students.Select(s => new { s.Id, s.Name, s.Age }));
         }
 
+        [HttpDelete]
         public IHttpActionResult DeleteStudent(int id)
         {
             int st = dbContext.Students.Where(s => s.Id == id).Delete();
@@ -28,15 +30,21 @@ namespace StudentsWebApplication.Controllers
                 return Ok();
         }
 
-        public IHttpActionResult UpdateStudent(int id, string name, Nullable<int> age)
+        [HttpPut]
+        public IHttpActionResult UpdateStudent(int id, Student student)
         {
-            int st = dbContext.Students.Where(s => s.Id == id).Update(s => new Student { Name = name, Age = age });
-            if (st == 0)
-                return NotFound();
-            else
-                return Ok();
+            student.Id = id;
+
+            dbContext.Students.Attach(student);
+            var entry = dbContext.Entry(student);
+            entry.Property(s => s.Name).IsModified = true;
+            entry.Property(s => s.Age).IsModified = true;
+            dbContext.SaveChanges();
+
+            return Ok();
         }
 
+        [HttpGet]
         public IHttpActionResult GetStudent(int id)
         {
             var student = dbContext.Students.Where(s => s.Id == id).Select(s => new { s.Name, s.Age }).FirstOrDefault();
