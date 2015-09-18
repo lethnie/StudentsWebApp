@@ -14,32 +14,27 @@ namespace StudentsWebApplication.Controllers
     {
         StudentsDbEntities dbContext = new StudentsDbEntities();
 
-        public String GetAllStudents()
+        public IHttpActionResult GetStudents()
         {
-            var students = dbContext.Students.Select(s => new { s.Id, s.Name, s.Age });
-            return JsonConvert.SerializeObject(students);
+            return Ok(dbContext.Students.Select(s => new { s.Id, s.Name, s.Age }));
         }
 
-        public String DeleteStudent(int id)
+        public IHttpActionResult DeleteStudent(int id)
         {
             int st = dbContext.Students.Where(s => s.Id == id).Delete();
-            string result;
-            if (st < 0)
-                result = "Указанный студент отсутствует в базе данных";
+            if (st == 0)
+                return NotFound();
             else
-                result = "Студент с идентификатором " + st + " удалён из базы данных";
-            return result;
+                return Ok();
         }
 
-        public String UpdateStudent(int id, string name, Nullable<int> age)
+        public IHttpActionResult UpdateStudent(int id, string name, Nullable<int> age)
         {
             int st = dbContext.Students.Where(s => s.Id == id).Update(s => new Student { Name = name, Age = age });
-            string result;
-            if (st < 0)
-                result = "Указанный студент отсутствует в базе данных";
+            if (st == 0)
+                return NotFound();
             else
-                result = "Студент с идентификатором " + st + " изменён";
-            return result;
+                return Ok();
         }
 
         public IHttpActionResult GetStudent(int id)
@@ -49,7 +44,7 @@ namespace StudentsWebApplication.Controllers
             {
                 return NotFound();
             }
-            return Ok(JsonConvert.SerializeObject(student));
+            return Ok(student);
         }
 
         protected override void Dispose(bool disposing)

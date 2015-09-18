@@ -14,32 +14,27 @@ namespace StudentsWebApplication.Controllers
     {
         StudentsDbEntities dbContext = new StudentsDbEntities();
 
-        public String GetAllStudentsCourses()
+        public IHttpActionResult GetAllStudentsCourses()
         {
-            var studentCourses = dbContext.StudentCourses.Select(s => new { s.Id, s.IdCourse, s.IdStudent, s.Course.Title, s.Student.Name });
-            return JsonConvert.SerializeObject(studentCourses);
+            return Ok(dbContext.StudentCourses.Select(s => new { s.Id, s.IdCourse, s.IdStudent, s.Course.Title, s.Student.Name }));
         }
 
-        public String DeleteStudentCourse(int id)
+        public IHttpActionResult DeleteStudentCourse(int id)
         {
-            int st = dbContext.StudentCourses.Where(s => s.Id == id).Delete();
-            string result;
-            if (st < 0)
-                result = "Указанный студент отсутствует в базе данных";
+            int c = dbContext.StudentCourses.Where(s => s.Id == id).Delete();
+            if (c == 0)
+                return NotFound();
             else
-                result = "Студент с идентификатором " + st + " удалён из базы данных";
-            return result;
+                return Ok();
         }
 
-        public String UpdateStudentCourse(int id, int courseId, int studId)
+        public IHttpActionResult UpdateStudentCourse(int id, int courseId, int studId)
         {
             int c = dbContext.StudentCourses.Where(s => s.Id == id).Update(s => new StudentCourse { IdCourse = courseId, IdStudent = studId });
-            string result;
-            if (c < 0)
-                result = "Указанный курс отсутствует в базе данных";
+            if (c == 0)
+                return NotFound();
             else
-                result = "Курс с идентификатором " + c + " изменён";
-            return result;
+                return Ok();
         }
 
         protected override void Dispose(bool disposing)

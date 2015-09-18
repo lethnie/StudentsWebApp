@@ -14,32 +14,27 @@ namespace StudentsWebApplication.Controllers
     {
         StudentsDbEntities dbContext = new StudentsDbEntities();
 
-        public String GetAllCourses()
+        public IHttpActionResult GetAllCourses()
         {
-            var courses = dbContext.Courses.Select(s => new { s.Id, s.Title, s.Lecturer });
-            return JsonConvert.SerializeObject(courses);
+            return Ok(dbContext.Courses.Select(s => new { s.Id, s.Title, s.Lecturer }));
         }
 
-        public String DeleteCourse(int id)
+        public IHttpActionResult DeleteCourse(int id)
         {
-            int st = dbContext.Courses.Where(s => s.Id == id).Delete();
-            string result;
-            if (st < 0)
-                result = "Указанный студент отсутствует в базе данных";
+            int c = dbContext.Courses.Where(s => s.Id == id).Delete();
+            if (c == 0)
+                return NotFound();
             else
-                result = "Студент с идентификатором " + st + " удалён из базы данных";
-            return result;
+                return Ok();
         }
 
-        public String UpdateCourse(int id, string title, string lecturer)
+        public IHttpActionResult UpdateCourse(int id, string title, string lecturer)
         {
             int c = dbContext.Courses.Where(s => s.Id == id).Update(s => new Course { Title = title, Lecturer = lecturer });
-            string result;
-            if (c < 0)
-                result = "Указанный курс отсутствует в базе данных";
+            if (c == 0)
+                return NotFound();
             else
-                result = "Курс с идентификатором " + c + " изменён";
-            return result;
+                return Ok();
         }
 
         protected override void Dispose(bool disposing)
