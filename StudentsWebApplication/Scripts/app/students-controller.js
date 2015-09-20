@@ -106,7 +106,7 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
     $scope.addCourse = function () {
         $http.post('/api/courses/', $scope.selectedCourse)
             .success(function (data) {
-                alert("Курс " + data.Title + "успешно добавлен.");
+                alert("Курс " + data.Title + " успешно добавлен.");
                 $scope.courses.push(data);
             }
         )
@@ -153,11 +153,11 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
     };
     $scope.updateStudentCourse = function () {
         $http.put('api/studentscourses/' + $scope.selectedStudentCourse.Id, $scope.selectedStudentCourse)
-        .success(function () {
+        .success(function (data) {
             alert("Соответствие студента и курса успешно изменено.");
             $.each($scope.students_courses, function (i) {
-                if ($scope.students_courses[i].Id == $scope.selectedStudentCourse.Id) {
-                    $scope.students_courses[i] = $scope.selectedStudentCourse;
+                if ($scope.students_courses[i].Id == data.Id) {
+                    $scope.students_courses[i] = data;
                     return false;
                 }
             });
@@ -184,7 +184,7 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         document.getElementById('edit_student_course_form').style.visibility = 'visible';
     };
     $scope.newStudentCourse = function () {
-        $scope.selectedStudentCourse = { StudentId: -1, CourseId: -1, Id: -1 };
+        $scope.selectedStudentCourse = { IdStudent: -1, IdCourse: -1, Id: -1 };
         document.getElementById('edit_student_course_form').style.visibility = 'visible';
     };
     $scope.addOrUpdateStudentCourse = function () {

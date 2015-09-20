@@ -42,31 +42,31 @@ namespace StudentsWebApplication.Controllers
         }*/
 
         [HttpPut]
-        public IHttpActionResult UpdateStudentCourse(int id, StudentCourse course)
+        public IHttpActionResult UpdateStudentCourse(int id, StudentCourse sc)
         {
-            course.Id = id;
+            sc.Id = id;
             //???
-            course.Student = dbContext.Students.Where(s => s.Id == course.IdStudent).First();
-            course.Course = dbContext.Courses.Where(s => s.Id == course.IdCourse).First();
+            sc.Student = dbContext.Students.Where(s => s.Id == sc.IdStudent).First();
+            sc.Course = dbContext.Courses.Where(s => s.Id == sc.IdCourse).First();
 
-            dbContext.StudentCourses.Attach(course);
-            var entry = dbContext.Entry(course);
+            dbContext.StudentCourses.Attach(sc);
+            var entry = dbContext.Entry(sc);
             //entry.Property(s => s.IdCourse).IsModified = true;
             //entry.Property(s => s.IdStudent).IsModified = true;
             entry.State = EntityState.Modified;
             dbContext.SaveChanges();
 
-            return Ok();
+            return Ok(new { sc.Id, sc.IdCourse, sc.IdStudent, sc.Course.Title, sc.Student.Name });
         }
 
         [HttpPost]
         public IHttpActionResult AddStudentCourse(StudentCourse sc)
-        {            
+        {
             sc.Student = dbContext.Students.Where(s => s.Id == sc.IdStudent).First();
             sc.Course = dbContext.Courses.Where(s => s.Id == sc.IdCourse).First();
             dbContext.StudentCourses.Add(sc);
             dbContext.SaveChanges();
-            return Ok(sc);
+            return Ok(new { sc.Id, sc.IdCourse, sc.IdStudent, sc.Course.Title, sc.Student.Name });
         }
 
         protected override void Dispose(bool disposing)

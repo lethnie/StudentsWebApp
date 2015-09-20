@@ -92,32 +92,29 @@
 
         <form id="edit_student_course_form" style="visibility:hidden">
             Студент:<br>
-            <select>
+            <select ng-model="selectedStudentCourse.IdStudent">
                 <option ng-repeat="s in students"
-                        ng-value="s.Id"
-                        ng-model="selectedStudentCourse.StudentId"
-                        ng-selected="selectedStudentCourse.StudentId == s.Id">
+                        value="{{s.Id}}">
                     {{s.Name}}
                 </option>
             </select>
             <br>
             Предмет:<br>
-            <select>
+            <select ng-model="selectedStudentCourse.IdCourse">
                 <option ng-repeat="s in courses"
-                        ng-value="s.Id"
-                        ng-model="selectedStudentCourse.CourseId"
-                        ng-selected="selectedStudentCourse.CourseId == s.Id">
+                        value="{{s.Id}}">
                     {{s.Title}}
                 </option>
             </select>
+
             <br><br>
             <button ng-click="addOrUpdateStudentCourse()">Сохранить</button>
         </form>
 
     </div>
 
-
-    
+    <!---->
+    <!--ng-value="s.Id"-->
 
     <!--<script>
         var uri = 'api/students';
