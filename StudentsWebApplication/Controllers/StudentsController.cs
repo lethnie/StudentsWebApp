@@ -39,9 +39,18 @@ namespace StudentsWebApplication.Controllers
             var entry = dbContext.Entry(student);
             entry.Property(s => s.Name).IsModified = true;
             entry.Property(s => s.Age).IsModified = true;
+
             dbContext.SaveChanges();
 
             return Ok();
+        }
+
+        [HttpPost]
+        public IHttpActionResult AddStudent(Student student)
+        {
+            dbContext.Students.Add(student);
+            dbContext.SaveChanges();
+            return Ok(student);
         }
 
         [HttpGet]

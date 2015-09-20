@@ -31,7 +31,7 @@ namespace StudentsWebApplication.Controllers
                 return Ok();
         }
 
-        [HttpPut]
+        /*[HttpPut]
         public IHttpActionResult UpdateStudentCourse(int id, int courseId, int studId)
         {
             int c = dbContext.StudentCourses.Where(s => s.Id == id).Update(s => new StudentCourse { IdCourse = courseId, IdStudent = studId });
@@ -39,7 +39,7 @@ namespace StudentsWebApplication.Controllers
                 return NotFound();
             else
                 return Ok();
-        }
+        }*/
 
         [HttpPut]
         public IHttpActionResult UpdateStudentCourse(int id, StudentCourse course)
@@ -57,6 +57,16 @@ namespace StudentsWebApplication.Controllers
             dbContext.SaveChanges();
 
             return Ok();
+        }
+
+        [HttpPost]
+        public IHttpActionResult AddStudentCourse(StudentCourse sc)
+        {            
+            sc.Student = dbContext.Students.Where(s => s.Id == sc.IdStudent).First();
+            sc.Course = dbContext.Courses.Where(s => s.Id == sc.IdCourse).First();
+            dbContext.StudentCourses.Add(sc);
+            dbContext.SaveChanges();
+            return Ok(sc);
         }
 
         protected override void Dispose(bool disposing)

@@ -44,6 +44,14 @@ namespace StudentsWebApplication.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        public IHttpActionResult AddCourse(Course course)
+        {
+            dbContext.Courses.Add(course);
+            dbContext.SaveChanges();
+            return Ok(course);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
