@@ -36,7 +36,6 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
             });
         $('#edit_student_form').css('visibility', 'hidden');
         disableEditor();
-        //$scope.selectedStudent = null;
     };
     $scope.addStudent = function () {
         $http.post('/api/students/', $scope.selectedStudent)
@@ -109,7 +108,6 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
             });
         $('#edit_course_form').css('visibility', 'hidden');
         disableEditor();
-        //$scope.selectedCourse = null;
     };
     $scope.addCourse = function () {
         $http.post('/api/courses/', $scope.selectedCourse)

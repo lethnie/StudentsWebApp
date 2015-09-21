@@ -1,10 +1,10 @@
 ﻿enableEditor = function () {
-    $('#mainForms').children().prop('disabled', true);//find('button').attr('disabled', true);
+    $('#mainForms').children().prop('disabled', true);
     $('#editForms').css('visibility', 'visible');
 }
 
 disableEditor = function () {
-    $('#mainForms').children().prop('disabled', false);//find('button').attr('enabled', true);
+    $('#mainForms').children().prop('disabled', false);
     $('#editForms').css('visibility', 'hidden');
 }
 

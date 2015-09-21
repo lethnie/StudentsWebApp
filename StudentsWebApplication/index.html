@@ -27,13 +27,26 @@
                         <tr ng-repeat="s in students">
                             <td><p>{{s.Name}}</p></td>
                             <td><p>{{s.Age}}</p></td>
-                            <td><button class="btn btn-default" 
-                                        ng-click="editStudent(s)">Изменить</button></td>
-                            <td><button class="btn btn-default" 
-                                        ng-click="deleteStudent(s.Id)">Удалить</button></td>
+                            <td>
+                                <button class="btn btn-default"
+                                        ng-click="editStudent(s)">
+                                    Изменить
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-default"
+                                        ng-click="deleteStudent(s.Id)">
+                                    Удалить
+                                </button>
+                            </td>
                         </tr>
-                        <tr><td><button class="btn btn-default" 
-                                        ng-click="newStudent()">Добавить</button></td></tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-default" ng-click="newStudent()">
+                                    Добавить
+                                </button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -52,13 +65,27 @@
                         <tr ng-repeat="s in courses">
                             <td><p>{{s.Title}}</p></td>
                             <td><p>{{s.Lecturer}}</p></td>
-                            <td><button class="btn btn-default"
-                                        ng-click="editCourse(s)">Изменить</button></td>
-                            <td><button class="btn btn-default"
-                                        ng-click="deleteCourse(s.Id)">Удалить</button></td>
+                            <td>
+                                <button class="btn btn-default"
+                                        ng-click="editCourse(s)">
+                                    Изменить
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-default"
+                                        ng-click="deleteCourse(s.Id)">
+                                    Удалить
+                                </button>
+                            </td>
                         </tr>
-                        <tr><td><button class="btn btn-default"
-                                        ng-click="newCourse()">Добавить</button></td></tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-default"
+                                        ng-click="newCourse()">
+                                    Добавить
+                                </button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -77,28 +104,39 @@
                         <tr ng-repeat="s in students_courses">
                             <td><p>{{s.Name}}</p></td>
                             <td><p>{{s.Title}}</p></td>
-                            <td><button class="btn btn-default"
-                                        ng-click="editStudentCourse(s)">Изменить</button></td>
-                            <td><button class="btn btn-default"
-                                        ng-click="deleteStudentCourse(s.Id)">Удалить</button></td>
+                            <td>
+                                <button class="btn btn-default"
+                                        ng-click="editStudentCourse(s)">
+                                    Изменить
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-default"
+                                        ng-click="deleteStudentCourse(s.Id)">
+                                    Удалить
+                                </button>
+                            </td>
                         </tr>
-                        <tr><td><button class="btn btn-default"
-                                        ng-click="newStudentCourse()">Добавить</button></td></tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-default"
+                                        ng-click="newStudentCourse()">
+                                    Добавить
+                                </button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-            </div>         
+            </div>
         </form>
 
+
         <div id="editForms" class="div-background-style">
-            <form id="edit_student_form" class="container div-style" style="visibility:hidden" name="edit_student_form" novalidate>
+            <!--<form id="edit_student_form" class="container div-style div-editor-style" style="visibility:hidden" name="edit_student_form" novalidate>
                 ФИО:<br>
                 <input type="text" class="form-control" ng-model="selectedStudent.Name"><br>
                 Возраст:<br>
                 <input type="number" class="form-control" name="age" ng-model="selectedStudent.Age" ng-pattern="/^[0-9]{0,3}$/" min="1" max="100">
-                <!--<span style="color:red" ng-show="edit_student_form.age.$dirty &&
-                  edit_student_form.age.$invalid">
-                Неверный возраст.
-            </span>-->
                 <div class="alert alert-danger" ng-show="edit_student_form.age.$dirty &&
                       edit_student_form.age.$invalid">
                     <strong>Ошибка!</strong> Указан неверный возраст.
@@ -112,9 +150,30 @@
                         class="btn btn-default">
                     Отмена
                 </button>
+            </form>-->
+
+            <form id="edit_student_form" class="container div-style div-editor-style" style="visibility:hidden" name="edit_student_form" novalidate>
+                ФИО:<br>
+                <input type="text" class="form-control" ng-model="selectedStudent.Name"><br>
+                Возраст:<br>
+                <input type="number" class="form-control" name="age" ng-model="selectedStudent.Age" ng-pattern="/^[0-9]{0,3}$/" min="1" max="100">
+                <div class="alert alert-danger" ng-show="edit_student_form.age.$dirty &&
+                      edit_student_form.age.$invalid">
+                    <strong>Ошибка!</strong> Указан неверный возраст.
+                </div>
+                <br><br>
+                <button ng-disabled="edit_student_form.age.$dirty &&
+                    edit_student_form.age.$invalid" ng-click="addOrUpdateStudent()" class="btn btn-default">
+                    Сохранить
+                </button>
+                <button ng-click="editStudentCancel()"
+                        class="btn btn-default">
+                    Отмена
+                </button>
+
             </form>
 
-            <form id="edit_course_form" class="container div-style" style="visibility:hidden">
+            <form id="edit_course_form" class="container div-style div-editor-style" style="visibility:hidden">
                 Предмет:<br>
                 <input type="text" class="form-control" ng-model="selectedCourse.Title"><br>
                 Преподаватель:<br>
@@ -127,7 +186,7 @@
                 </button>
             </form>
 
-            <form id="edit_student_course_form" class="container div-style" style="visibility:hidden">
+            <form id="edit_student_course_form" class="container div-style div-editor-style" style="visibility:hidden">
                 Студент:<br>
                 <select class="form-control" ng-model="selectedStudentCourse.IdStudent"
                         ng-options="s.Id as s.Name for s in students"></select>
@@ -143,6 +202,7 @@
                 </button>
             </form>
         </div>
+
     </div>
 </body>
 </html>
