@@ -34,8 +34,9 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
             .error(function () {
                 alert("Ошибка! Студент " + $scope.selectedStudent.Name + " не был изменён");
             });
-        document.getElementById('edit_student_form').style.visibility = 'hidden';
-        $scope.selectedStudent = null;
+        $('#edit_student_form').css('visibility', 'hidden');
+        disableEditor();
+        //$scope.selectedStudent = null;
     };
     $scope.addStudent = function () {
         $http.post('/api/students/', $scope.selectedStudent)
@@ -47,17 +48,20 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         .error(function () {
             alert("Ошибка! Студент не был добавлен.");
         });
-        document.getElementById('edit_student_form').style.visibility = 'hidden';
+        $('#edit_student_form').css('visibility', 'hidden');
+        disableEditor();
     };
     $scope.editStudent = function (student) {
         $scope.selectedStudent = student;
-        document.getElementById('edit_student_form').style.visibility = 'visible';
+        enableEditor();
+        $('#edit_student_form').css('visibility', 'visible');
     };
     $scope.newStudent = function () {
-        $scope.selectedStudent = {Name: "", Age: 0, Id: -1};
-        document.getElementById('edit_student_form').style.visibility = 'visible';
+        $scope.selectedStudent = { Name: "", Age: 0, Id: -1 };
+        enableEditor();
+        $('#edit_student_form').css('visibility', 'visible');
     };
-    $scope.addOrUpdateStudent = function () {
+    $scope.addOrUpdateStudent = function () {       
         if ($scope.selectedStudent.Id == -1) {
             $scope.addStudent();
         }
@@ -65,7 +69,10 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
             $scope.updateStudent();
         }
     };
-
+    $scope.editStudentCancel = function () {
+        disableEditor();
+        $('#edit_student_form').css('visibility', 'hidden');
+    }
 
     $http.get('api/courses')
         .success(function (courses) {
@@ -100,8 +107,9 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
             .error(function () {
                 alert("Ошибка! Курс " + $scope.selectedCourse.Title + " не был изменён.");
             });
-        document.getElementById('edit_student_course_form').style.visibility = 'hidden';
-        $scope.selectedCourse = null;
+        $('#edit_course_form').css('visibility', 'hidden');
+        disableEditor();
+        //$scope.selectedCourse = null;
     };
     $scope.addCourse = function () {
         $http.post('/api/courses/', $scope.selectedCourse)
@@ -113,15 +121,18 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         .error(function () {
             alert("Ошибка! Курс не был добавлен.");
         });
-        document.getElementById('edit_course_form').style.visibility = 'hidden';
+        $('#edit_course_form').css('visibility', 'hidden');
+        disableEditor();
     };
     $scope.editCourse = function (course) {
         $scope.selectedCourse = course;
-        document.getElementById('edit_course_form').style.visibility = 'visible';
+        enableEditor();
+        $('#edit_course_form').css('visibility', 'visible');
     };
     $scope.newCourse = function () {
         $scope.selectedCourse = { Title: "", Lecturer: "", Id: -1 };
-        document.getElementById('edit_course_form').style.visibility = 'visible';
+        enableEditor();
+        $('#edit_course_form').css('visibility', 'visible');
     };
     $scope.addOrUpdateCourse = function () {
         if ($scope.selectedCourse.Id == -1) {
@@ -131,6 +142,10 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
             $scope.updateCourse();
         }
     };
+    $scope.editCourseCancel = function () {
+        $('#edit_course_form').css('visibility', 'hidden');
+        disableEditor();
+    }
 
 
     $http.get('api/studentscourses')
@@ -166,7 +181,8 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         .error(function () {
             alert("Ошибка! Соответствие студента и курса не было изменено.");
         });
-        document.getElementById('edit_student_course_form').style.visibility = 'hidden';     
+        $('#edit_student_course_form').css('visibility', 'hidden');
+        disableEditor();
     };
     $scope.addStudentCourse = function () {
         $http.post('/api/studentscourses/', $scope.selectedStudentCourse)
@@ -178,15 +194,18 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         .error(function () {
             alert("Ошибка! Соответствие студента и курса не было добавлено.");
         });
-        document.getElementById('edit_student_course_form').style.visibility = 'hidden';
+        $('#edit_student_course_form').css('visibility', 'hidden');
+        disableEditor();
     };
     $scope.editStudentCourse = function (student_course) {
         $scope.selectedStudentCourse = { IdStudent: student_course.IdStudent, IdCourse: student_course.IdCourse, Id: student_course.Id };
-        document.getElementById('edit_student_course_form').style.visibility = 'visible';
+        enableEditor();
+        $('#edit_student_course_form').css('visibility', 'visible');
     };
     $scope.newStudentCourse = function () {
         $scope.selectedStudentCourse = { IdStudent: -1, IdCourse: -1, Id: -1 };
-        document.getElementById('edit_student_course_form').style.visibility = 'visible';
+        enableEditor();
+        $('#edit_student_course_form').css('visibility', 'visible');
     };
     $scope.addOrUpdateStudentCourse = function () {
         if ($scope.selectedStudentCourse.Id == -1) {
@@ -196,4 +215,8 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
             $scope.updateStudentCourse();
         }
     };
+    $scope.editStudentCourseCancel = function () {
+        $('#edit_student_course_form').css('visibility', 'hidden');
+        disableEditor();
+    }
 }]);
