@@ -24,6 +24,13 @@
     padding:10px;
 }
 
+.alert-margins {
+    /*width:50%;
+    left:25%;*/
+    text-align:center;
+    margin:15px;
+}
+
 .div-background-style {
     background-color: rgba(101, 101, 101, 0.73);
     visibility:hidden;
@@ -34,9 +41,9 @@
 
 .div-editor-style {
     position:fixed;
-    width:50%;
+    width:40%;
     padding:15px;
     cursor: pointer;
     top: 100px;
-    left: 25%;
+    left: 30%;
 }

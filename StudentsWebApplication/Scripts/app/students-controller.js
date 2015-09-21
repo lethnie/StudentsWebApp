@@ -5,25 +5,28 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         .success(function (students) {
             $scope.students = students;
         });
-    $scope.deleteStudent = function (studId) {
-        $http.delete('api/students/' + studId)
+    
+    $scope.deleteStudent = function () {
+        $http.delete('api/students/' + $scope.selectedStudent.Id)
             .success(function () {
-                alert("Студент успешно удалён из базы данных.");
+                alertMessage(true, "Студент успешно удалён из базы данных.");
                 $.each($scope.students, function (i) {
-                    if ($scope.students[i].Id == studId) {
+                    if ($scope.students[i].Id == $scope.selectedStudent.Id) {
                         $scope.students.splice(i, 1);
                         return false;
                     }
                 });
             })
             .error(function () {
-                alert("Ошибка! Студент не был удалён из базы данных.");
+                alertMessage(false, "<strong>Ошибка!</strong> Студент не был удалён из базы данных.");
             })
+        $('#delete_student_form').css('visibility', 'hidden');
+        disableEditor();
     };
     $scope.updateStudent = function () {
         $http.put('api/students/' + $scope.selectedStudent.Id, $scope.selectedStudent)
             .success(function () {
-                alert("Студент " + $scope.selectedStudent.Name + " успешно изменён.");
+                alertMessage(true, "Студент " + $scope.selectedStudent.Name + " успешно изменён.");
                 $.each($scope.students, function (i) {
                     if ($scope.students[i].Id == $scope.selectedStudent.Id) {
                         $scope.students[i] = $scope.selectedStudent;
@@ -32,7 +35,7 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
                 });
             })
             .error(function () {
-                alert("Ошибка! Студент " + $scope.selectedStudent.Name + " не был изменён");
+                alertMessage(false, "<strong>Ошибка!</strong> Студент " + $scope.selectedStudent.Name + " не был изменён");
             });
         $('#edit_student_form').css('visibility', 'hidden');
         disableEditor();
@@ -40,12 +43,12 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
     $scope.addStudent = function () {
         $http.post('/api/students/', $scope.selectedStudent)
             .success(function (data) {
-                alert("Студент " + data.Name + " успешно добавлен.");
+                alertMessage(true, "Студент " + data.Name + " успешно добавлен.");
                 $scope.students.push(data);
             }
         )
         .error(function () {
-            alert("Ошибка! Студент не был добавлен.");
+            alertMessage(false, "<strong>Ошибка!</strong> Студент не был добавлен.");
         });
         $('#edit_student_form').css('visibility', 'hidden');
         disableEditor();
@@ -60,6 +63,11 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         enableEditor();
         $('#edit_student_form').css('visibility', 'visible');
     };
+    $scope.deleteStudentPrep = function (student) {
+        $scope.selectedStudent = student;
+        enableEditor();
+        $('#delete_student_form').css('visibility', 'visible');
+    }
     $scope.addOrUpdateStudent = function () {       
         if ($scope.selectedStudent.Id == -1) {
             $scope.addStudent();
@@ -70,6 +78,7 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
     };
     $scope.editStudentCancel = function () {
         disableEditor();
+        $('#delete_student_form').css('visibility', 'hidden');
         $('#edit_student_form').css('visibility', 'hidden');
     }
 
@@ -77,25 +86,27 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         .success(function (courses) {
             $scope.courses = courses;
         });
-    $scope.deleteCourse = function (courseId) {
-        $http.delete('api/courses/' + courseId)
+    $scope.deleteCourse = function () {
+        $http.delete('api/courses/' + $scope.selectedCourse.Id)
             .success(function () {
-                alert("Курс успешно удалён.");
+                alertMessage(true, "Курс успешно удалён.");
                 $.each($scope.courses, function (i) {
-                    if ($scope.courses[i].Id == courseId) {
+                    if ($scope.courses[i].Id == $scope.selectedCourse.Id) {
                         $scope.courses.splice(i, 1);
                         return false;
                     }
                 });
             })
             .error(function () {
-                alert("Ошибка! Курс не был удалён из базы данных.");
+                alertMessage(false, "<strong>Ошибка!</strong> Курс не был удалён из базы данных.");
             });
+        $('#delete_course_form').css('visibility', 'hidden');
+        disableEditor();
     };
     $scope.updateCourse = function () {
         $http.put('api/courses/' + $scope.selectedCourse.Id, $scope.selectedCourse)
             .success(function () {
-                alert("Курс " + $scope.selectedCourse.Title + " успешно изменён.");
+                alertMessage(true, "Курс " + $scope.selectedCourse.Title + " успешно изменён.");
                 $.each($scope.courses, function (i) {
                     if ($scope.courses[i].Id == $scope.selectedCourse.Id) {
                         $scope.courses[i] = $scope.selectedCourse;
@@ -104,7 +115,7 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
                 });
             })
             .error(function () {
-                alert("Ошибка! Курс " + $scope.selectedCourse.Title + " не был изменён.");
+                alertMessage(false, "<strong>Ошибка!</strong> Курс " + $scope.selectedCourse.Title + " не был изменён.");
             });
         $('#edit_course_form').css('visibility', 'hidden');
         disableEditor();
@@ -112,12 +123,12 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
     $scope.addCourse = function () {
         $http.post('/api/courses/', $scope.selectedCourse)
             .success(function (data) {
-                alert("Курс " + data.Title + " успешно добавлен.");
+                alertMessage(true, "Курс " + data.Title + " успешно добавлен.");
                 $scope.courses.push(data);
             }
         )
         .error(function () {
-            alert("Ошибка! Курс не был добавлен.");
+            alertMessage(false, "<strong>Ошибка!</strong> Курс не был добавлен.");
         });
         $('#edit_course_form').css('visibility', 'hidden');
         disableEditor();
@@ -132,6 +143,11 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         enableEditor();
         $('#edit_course_form').css('visibility', 'visible');
     };
+    $scope.deleteCoursePrep = function (course) {
+        $scope.selectedCourse = course;
+        enableEditor();
+        $('#delete_course_form').css('visibility', 'visible');
+    }
     $scope.addOrUpdateCourse = function () {
         if ($scope.selectedCourse.Id == -1) {
             $scope.addCourse();
@@ -142,6 +158,7 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
     };
     $scope.editCourseCancel = function () {
         $('#edit_course_form').css('visibility', 'hidden');
+        $('#delete_course_form').css('visibility', 'hidden');
         disableEditor();
     }
 
@@ -150,25 +167,27 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         .success(function (students_courses) {
             $scope.students_courses = students_courses;
         });
-    $scope.deleteStudentCourse = function (studentscoursesId) {
-        $http.delete('api/studentscourses/' + studentscoursesId)
+    $scope.deleteStudentCourse = function () {
+        $http.delete('api/studentscourses/' + $scope.selectedStudentCourse.Id)
             .success(function () {
-                alert("Соответствие студента и курса успешно удалено.");
+                alertMessage(true, "Соответствие студента и курса успешно удалено.");
                 $.each($scope.students_courses, function (i) {
-                    if ($scope.students_courses[i].Id == studentscoursesId) {
+                    if ($scope.students_courses[i].Id == $scope.selectedStudentCourse.Id) {
                         $scope.students_courses.splice(i, 1);
                         return false;
                     }
                 });
             })
             .error(function () {
-                alert("Ошибка! Соответствие студента и курса не было удалено из базы данных.");
+                alertMessage(false, "<strong>Ошибка!</strong> Соответствие студента и курса не было удалено из базы данных.");
             });
+        $('#delete_student_course_form').css('visibility', 'hidden');
+        disableEditor();
     };
     $scope.updateStudentCourse = function () {
         $http.put('api/studentscourses/' + $scope.selectedStudentCourse.Id, $scope.selectedStudentCourse)
         .success(function (data) {
-            alert("Соответствие студента и курса успешно изменено.");
+            alertMessage(true, "Соответствие студента и курса успешно изменено.");
             $.each($scope.students_courses, function (i) {
                 if ($scope.students_courses[i].Id == data.Id) {
                     $scope.students_courses[i] = data;
@@ -177,7 +196,7 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
             });
         })
         .error(function () {
-            alert("Ошибка! Соответствие студента и курса не было изменено.");
+            alertMessage(false, "<strong>Ошибка!</strong> Соответствие студента и курса не было изменено.");
         });
         $('#edit_student_course_form').css('visibility', 'hidden');
         disableEditor();
@@ -185,12 +204,12 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
     $scope.addStudentCourse = function () {
         $http.post('/api/studentscourses/', $scope.selectedStudentCourse)
             .success(function (data) {
-                alert("Соответствие студента и курса успешно добавлено.");
+                alertMessage(true, "Соответствие студента и курса успешно добавлено.");
                 $scope.students_courses.push(data);
             }
         )
         .error(function () {
-            alert("Ошибка! Соответствие студента и курса не было добавлено.");
+            alertMessage(false, "<strong>Ошибка!</strong> Соответствие студента и курса не было добавлено.");
         });
         $('#edit_student_course_form').css('visibility', 'hidden');
         disableEditor();
@@ -205,6 +224,11 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         enableEditor();
         $('#edit_student_course_form').css('visibility', 'visible');
     };
+    $scope.deleteStudentCoursePrep = function (st_course) {
+        $scope.selectedStudentCourse = st_course;
+        enableEditor();
+        $('#delete_student_course_form').css('visibility', 'visible');
+    }
     $scope.addOrUpdateStudentCourse = function () {
         if ($scope.selectedStudentCourse.Id == -1) {
             $scope.addStudentCourse();
@@ -215,6 +239,7 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
     };
     $scope.editStudentCourseCancel = function () {
         $('#edit_student_course_form').css('visibility', 'hidden');
+        $('#delete_student_course_form').css('visibility', 'hidden');
         disableEditor();
     }
 }]);
