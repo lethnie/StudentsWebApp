@@ -1,0 +1,17 @@
+﻿body {
+    padding-top: 40px;
+    background-color: #eee;
+}
+
+.div-right {
+    position:relative;
+    right:0px;
+    left:33%;
+    text-align: right;
+}
+
+.div-left {
+    position:relative;
+    left:0px;
+    text-align: left;
+}

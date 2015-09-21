@@ -7,14 +7,15 @@
     <script src="Scripts/jquery-2.1.4.min.js"></script>
     <script src="Scripts/angular.min.js"></script>
     <script src="Scripts/app/students-controller.js"></script>
-
+    <link rel="stylesheet" href="Content/bootstrap.min.css">
+    <link rel="stylesheet" href="Content/students-styles.css">
     
     <div ng-app="StudApp" ng-controller="StudController">
         <form>
-            <div>
+            <div class="table-responsive container col-xs-12 col-md-8 div-left">
                 <h2>Студенты</h2>
 
-                <table class="table">
+                <table class="table table-hover table-condensed">
                     <thead>
                         <tr>
                             <th>Имя</th>
@@ -33,10 +34,10 @@
                 </table>
             </div>
 
-            <div>
+            <div class="table-responsive container col-xs-12 col-md-8 div-right">
                 <h2>Предметы</h2>
 
-                <table class="table">
+                <table class="table table-hover table-condensed">
                     <thead>
                         <tr>
                             <th>Название</th>
@@ -55,10 +56,10 @@
                 </table>
             </div>
 
-            <div>
+            <div class="table-responsive container col-xs-12 col-md-8 div-left">
                 <h2>Изучаемые предметы</h2>
 
-                <table class="table">
+                <table class="table table-hover table-condensed">
                     <thead>
                         <tr>
                             <th>Студент</th>
@@ -75,44 +76,60 @@
                         <tr><td><button ng-click="newStudentCourse()">Добавить</button></td></tr>
                     </tbody>
                 </table>
-            </div>
+            </div>         
         </form>
 
-        <form id="edit_student_form" style="visibility:hidden" name="edit_student_form" novalidate>
+        <form id="edit_student_form" class="container" style="visibility:hidden" name="edit_student_form" novalidate>
             ФИО:<br>
-            <input type="text" ng-model="selectedStudent.Name"><br>
+            <input type="text" class="form-control" ng-model="selectedStudent.Name"><br>
             Возраст:<br>
-            <input type="number" name="age" ng-model="selectedStudent.Age" ng-pattern="/^[0-9]{0,3}$/" min="1" max="100">
-                <span style="color:red" ng-show="edit_student_form.age.$dirty &&
+            <input type="number" class="form-control" name="age" ng-model="selectedStudent.Age" ng-pattern="/^[0-9]{0,3}$/" min="1" max="100">
+            <!--<span style="color:red" ng-show="edit_student_form.age.$dirty &&
+                  edit_student_form.age.$invalid">
+                Неверный возраст.
+            </span>-->
+            <div class="alert alert-danger" ng-show="edit_student_form.age.$dirty &&
                       edit_student_form.age.$invalid">
-                    Неверный возраст.
-                </span>
+                <strong>Ошибка!</strong> Указан неверный возраст.
+            </div>
             <br><br>
             <button ng-disabled="edit_student_form.age.$dirty &&
-                    edit_student_form.age.$invalid" ng-click="addOrUpdateStudent()">
+                    edit_student_form.age.$invalid" ng-click="addOrUpdateStudent()" class="btn btn-default">
                 Сохранить
+            </button>
+            <button ng-click="document.getElementById('edit_student_form').style.visibility = 'hidden'"
+                    class="btn btn-default">
+                Отмена
             </button>
         </form>
 
-        <form id="edit_course_form" style="visibility:hidden">
+        <form id="edit_course_form" class="container" style="visibility:hidden">
             Предмет:<br>
-            <input type="text" ng-model="selectedCourse.Title"><br>
+            <input type="text" class="form-control" ng-model="selectedCourse.Title"><br>
             Преподаватель:<br>
-            <input type="text" ng-model="selectedCourse.Lecturer">
+            <input type="text" class="form-control" ng-model="selectedCourse.Lecturer">
             <br><br>
-            <button ng-click="addOrUpdateCourse()">Сохранить</button>
+            <button ng-click="addOrUpdateCourse()" class="btn btn-default">Сохранить</button>
+            <button ng-click="document.getElementById('edit_course_form').style.visibility = 'hidden'"
+                    class="btn btn-default">
+                Отмена
+            </button>
         </form>
 
-        <form id="edit_student_course_form" style="visibility:hidden">
+        <form id="edit_student_course_form" class="container" style="visibility:hidden">
             Студент:<br>
-            <select ng-model="selectedStudentCourse.IdStudent"
+            <select class="form-control" ng-model="selectedStudentCourse.IdStudent"
                     ng-options="s.Id as s.Name for s in students"></select>
             <br>
             Предмет:<br>
-            <select ng-model="selectedStudentCourse.IdCourse"
+            <select class="form-control" ng-model="selectedStudentCourse.IdCourse"
                     ng-options="s.Id as s.Title for s in courses"></select>
             <br><br>
-            <button ng-click="addOrUpdateStudentCourse()">Сохранить</button>
+            <button ng-click="addOrUpdateStudentCourse()" class="btn btn-default">Сохранить</button>
+            <button ng-click="document.getElementById('edit_student_course_form').style.visibility = 'hidden'"
+                    class="btn btn-default">
+                Отмена
+            </button>
         </form>
     </div>
 </body>

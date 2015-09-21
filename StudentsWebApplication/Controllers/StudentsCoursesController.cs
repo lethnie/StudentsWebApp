@@ -31,21 +31,11 @@ namespace StudentsWebApplication.Controllers
                 return Ok();
         }
 
-        /*[HttpPut]
-        public IHttpActionResult UpdateStudentCourse(int id, int courseId, int studId)
-        {
-            int c = dbContext.StudentCourses.Where(s => s.Id == id).Update(s => new StudentCourse { IdCourse = courseId, IdStudent = studId });
-            if (c == 0)
-                return NotFound();
-            else
-                return Ok();
-        }*/
-
         [HttpPut]
         public IHttpActionResult UpdateStudentCourse(int id, StudentCourse sc)
         {
             sc.Id = id;
-            //???
+
             sc.Student = dbContext.Students.Where(s => s.Id == sc.IdStudent).First();
             sc.Course = dbContext.Courses.Where(s => s.Id == sc.IdCourse).First();
 
