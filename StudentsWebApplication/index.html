@@ -132,36 +132,17 @@
 
 
         <div id="editForms" class="div-background-style">
-            <!--<form id="edit_student_form" class="container div-style div-editor-style" style="visibility:hidden" name="edit_student_form" novalidate>
-                ФИО:<br>
-                <input type="text" class="form-control" ng-model="selectedStudent.Name"><br>
-                Возраст:<br>
-                <input type="number" class="form-control" name="age" ng-model="selectedStudent.Age" ng-pattern="/^[0-9]{0,3}$/" min="1" max="100">
-                <div class="alert alert-danger" ng-show="edit_student_form.age.$dirty &&
-                      edit_student_form.age.$invalid">
-                    <strong>Ошибка!</strong> Указан неверный возраст.
-                </div>
-                <br><br>
-                <button ng-disabled="edit_student_form.age.$dirty &&
-                    edit_student_form.age.$invalid" ng-click="addOrUpdateStudent()" class="btn btn-default">
-                    Сохранить
-                </button>
-                <button ng-click="editStudentCancel()"
-                        class="btn btn-default">
-                    Отмена
-                </button>
-            </form>-->
-
             <form id="edit_student_form" class="container div-style div-editor-style" style="visibility:hidden" name="edit_student_form" novalidate>
                 ФИО:<br>
                 <input type="text" class="form-control" ng-model="selectedStudent.Name"><br>
                 Возраст:<br>
                 <input type="number" class="form-control" name="age" ng-model="selectedStudent.Age" ng-pattern="/^[0-9]{0,3}$/" min="1" max="100">
+                <br>
                 <div class="alert alert-danger" ng-show="edit_student_form.age.$dirty &&
                       edit_student_form.age.$invalid">
                     <strong>Ошибка!</strong> Указан неверный возраст.
                 </div>
-                <br><br>
+                <br>
                 <button ng-disabled="edit_student_form.age.$dirty &&
                     edit_student_form.age.$invalid" ng-click="addOrUpdateStudent()" class="btn btn-default">
                     Сохранить
@@ -169,8 +150,7 @@
                 <button ng-click="editStudentCancel()"
                         class="btn btn-default">
                     Отмена
-                </button>
-
+                </button>  
             </form>
 
             <form id="edit_course_form" class="container div-style div-editor-style" style="visibility:hidden">

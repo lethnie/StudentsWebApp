@@ -56,7 +56,7 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         $('#edit_student_form').css('visibility', 'visible');
     };
     $scope.newStudent = function () {
-        $scope.selectedStudent = { Name: "", Age: 0, Id: -1 };
+        $scope.selectedStudent = { Name: "", Age: null, Id: -1 };
         enableEditor();
         $('#edit_student_form').css('visibility', 'visible');
     };
