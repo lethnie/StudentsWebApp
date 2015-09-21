@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Students App</title>
+    <title>Студенты</title>
 </head>
 <body>
     <script src="Scripts/jquery-2.1.4.min.js"></script>
@@ -11,74 +11,87 @@
     
     <div ng-app="StudApp" ng-controller="StudController">
         <form>
-            <h2>All Students</h2>
+            <div>
+                <h2>Студенты</h2>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Age</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="s in students">
-                        <td><p>{{s.Name}}</p></td>
-                        <td><p>{{s.Age}}</p></td>
-                        <td><button ng-click="editStudent(s)">Изменить</button></td>
-                        <td><button ng-click="deleteStudent(s.Id)">Удалить</button></td>
-                    </tr>
-                    <tr><td><button ng-click="newStudent()">Добавить</button></td></tr>
-                </tbody>
-            </table>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Возраст</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="s in students">
+                            <td><p>{{s.Name}}</p></td>
+                            <td><p>{{s.Age}}</p></td>
+                            <td><button ng-click="editStudent(s)">Изменить</button></td>
+                            <td><button ng-click="deleteStudent(s.Id)">Удалить</button></td>
+                        </tr>
+                        <tr><td><button ng-click="newStudent()">Добавить</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
 
-            <h2>All Courses</h2>
+            <div>
+                <h2>Предметы</h2>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Lecturer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="s in courses">
-                        <td><p>{{s.Title}}</p></td>
-                        <td><p>{{s.Lecturer}}</p></td>
-                        <td><button ng-click="editCourse(s)">Изменить</button></td>
-                        <td><button ng-click="deleteCourse(s.Id)">Удалить</button></td>
-                    </tr>
-                    <tr><td><button ng-click="newCourse()">Добавить</button></td></tr>
-                </tbody>
-            </table>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Преподаватель</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="s in courses">
+                            <td><p>{{s.Title}}</p></td>
+                            <td><p>{{s.Lecturer}}</p></td>
+                            <td><button ng-click="editCourse(s)">Изменить</button></td>
+                            <td><button ng-click="deleteCourse(s.Id)">Удалить</button></td>
+                        </tr>
+                        <tr><td><button ng-click="newCourse()">Добавить</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
 
-            <h2>Students and Courses</h2>
+            <div>
+                <h2>Изучаемые предметы</h2>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Course</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="s in students_courses">
-                        <td><p>{{s.Name}}</p></td>
-                        <td><p>{{s.Title}}</p></td>
-                        <td><button ng-click="editStudentCourse(s)">Изменить</button></td>
-                        <td><button ng-click="deleteStudentCourse(s.Id)">Удалить</button></td>
-                    </tr>
-                    <tr><td><button ng-click="newStudentCourse()">Добавить</button></td></tr>
-                </tbody>
-            </table>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Студент</th>
+                            <th>Предмет</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="s in students_courses">
+                            <td><p>{{s.Name}}</p></td>
+                            <td><p>{{s.Title}}</p></td>
+                            <td><button ng-click="editStudentCourse(s)">Изменить</button></td>
+                            <td><button ng-click="deleteStudentCourse(s.Id)">Удалить</button></td>
+                        </tr>
+                        <tr><td><button ng-click="newStudentCourse()">Добавить</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
         </form>
 
-        <form id="edit_student_form" style="visibility:hidden">
+        <form id="edit_student_form" style="visibility:hidden" name="edit_student_form" novalidate>
             ФИО:<br>
             <input type="text" ng-model="selectedStudent.Name"><br>
             Возраст:<br>
-            <input type="number" ng-model="selectedStudent.Age">
+            <input type="number" name="age" ng-model="selectedStudent.Age" ng-pattern="/^[0-9]{0,3}$/" min="1" max="100">
+                <span style="color:red" ng-show="edit_student_form.age.$dirty &&
+                      edit_student_form.age.$invalid">
+                    Неверный возраст.
+                </span>
             <br><br>
-            <button ng-click="addOrUpdateStudent()">Сохранить</button>
+            <button ng-disabled="edit_student_form.age.$dirty &&
+                    edit_student_form.age.$invalid" ng-click="addOrUpdateStudent()">
+                Сохранить
+            </button>
         </form>
 
         <form id="edit_course_form" style="visibility:hidden">
@@ -101,40 +114,6 @@
             <br><br>
             <button ng-click="addOrUpdateStudentCourse()">Сохранить</button>
         </form>
-
     </div>
-
-    <!---->
-    <!--ng-value="s.Id"-->
-
-    <!--<script>
-        var uri = 'api/students';
-
-        $(document).ready(function () {
-            $.getJSON(uri)
-                .done(function (data) {
-                    var arr = $.parseJSON(data);
-                    $.each(arr, function (key, item) {
-                        $('<li>', { text: formatItem(item) }).appendTo($('#students'));
-                    });
-                });
-        });
-
-        function formatItem(item) {
-            return item.Name + ': ' + item.Age;
-        }
-
-        function find() {
-            var id = $('#studId').val();
-            $.getJSON(uri + '/' + id)
-                .done(function (data) {
-                    var arr = $.parseJSON(data);
-                    $('#student').text(formatItem(arr));
-                })
-                .fail(function (jqXHR, textStatus, err) {
-                    $('#student').text('Error: ' + err);
-                });
-        }
-    </script>-->
 </body>
 </html>
