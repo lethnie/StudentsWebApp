@@ -92,21 +92,12 @@
 
         <form id="edit_student_course_form" style="visibility:hidden">
             Студент:<br>
-            <select ng-model="selectedStudentCourse.IdStudent">
-                <option ng-repeat="s in students"
-                        value="{{s.Id}}">
-                    {{s.Name}}
-                </option>
-            </select>
+            <select ng-model="selectedStudentCourse.IdStudent"
+                    ng-options="s.Id as s.Name for s in students"></select>
             <br>
             Предмет:<br>
-            <select ng-model="selectedStudentCourse.IdCourse">
-                <option ng-repeat="s in courses"
-                        value="{{s.Id}}">
-                    {{s.Title}}
-                </option>
-            </select>
-
+            <select ng-model="selectedStudentCourse.IdCourse"
+                    ng-options="s.Id as s.Title for s in courses"></select>
             <br><br>
             <button ng-click="addOrUpdateStudentCourse()">Сохранить</button>
         </form>

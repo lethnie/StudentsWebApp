@@ -132,6 +132,7 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         }
     };
 
+
     $http.get('api/studentscourses')
         .success(function (students_courses) {
             $scope.students_courses = students_courses;
@@ -180,7 +181,7 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         document.getElementById('edit_student_course_form').style.visibility = 'hidden';
     };
     $scope.editStudentCourse = function (student_course) {
-        $scope.selectedStudentCourse = student_course;
+        $scope.selectedStudentCourse = { IdStudent: student_course.IdStudent, IdCourse: student_course.IdCourse, Id: student_course.Id };
         document.getElementById('edit_student_course_form').style.visibility = 'visible';
     };
     $scope.newStudentCourse = function () {
