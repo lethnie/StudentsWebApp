@@ -19,7 +19,6 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
                 $.each($scope.students_courses, function (i) {
                     if ($scope.students_courses[i].IdStudent == $scope.selectedStudent.Id) {
                         $scope.students_courses.splice(i, 1);
-                        return false;
                     }
                 });
             })
@@ -42,7 +41,6 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
                 $.each($scope.students_courses, function (i) {
                     if ($scope.students_courses[i].IdStudent == $scope.selectedStudent.Id) {
                         $scope.students_courses[i].Name = $scope.selectedStudent.Name;
-                        return false;
                     }
                 });
             })
@@ -111,7 +109,6 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
                 $.each($scope.students_courses, function (i) {
                     if ($scope.students_courses[i].IdCourse == $scope.selectedCourse.Id) {
                         $scope.students_courses.splice(i, 1);
-                        return false;
                     }
                 });
             })
@@ -135,7 +132,6 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
                 $.each($scope.students_courses, function (i) {
                     if ($scope.students_courses[i].IdCourse == $scope.selectedCourse.Id) {
                         $scope.students_courses[i].Title = $scope.selectedCourse.Title;
-                        return false;
                     }
                 });
             })
@@ -227,6 +223,16 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         disableEditor();
     };
     $scope.addStudentCourse = function () {
+        i = 0;
+        while (($scope.students_courses.length > i)) {// && (!exists)) {
+            if (($scope.students_courses[i].IdStudent == $scope.selectedStudentCourse.IdStudent)
+            && ($scope.students_courses[i].IdCourse == $scope.selectedStudentCourse.IdCourse)) {
+                alertMessage(false, "<strong>Ошибка!</strong> Указанное соответствие студента и курса уже существует.");
+                $('#edit_student_course_form').css('visibility', 'hidden');
+                disableEditor();
+                return ;
+            }
+        }
         $http.post('/api/studentscourses/', $scope.selectedStudentCourse)
             .success(function (data) {
                 alertMessage(true, "Соответствие студента и курса успешно добавлено.");
@@ -236,6 +242,8 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         .error(function () {
             alertMessage(false, "<strong>Ошибка!</strong> Соответствие студента и курса не было добавлено.");
         });
+
+            
         $('#edit_student_course_form').css('visibility', 'hidden');
         disableEditor();
     };

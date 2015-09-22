@@ -151,7 +151,7 @@
                     <strong>Ошибка!</strong> Указан неверный возраст.
                 </div>
                 <div class="alert alert-danger" ng-show="edit_student_form.student_name.$invalid">
-                    <strong>Ошибка!</strong> Необходимо указать имя студента.
+                    Необходимо указать имя студента.
                 </div>
                 <br>
                 <button ng-disabled="edit_student_form.age.$dirty &&
@@ -183,7 +183,7 @@
                 <input type="text" class="form-control" ng-model="selectedCourse.Lecturer">
                 <br>
                 <div class="alert alert-danger" ng-show="edit_course_form.course_title.$invalid">
-                    <strong>Ошибка!</strong> Необходимо указать название курса.
+                    Необходимо указать название курса.
                 </div>
                 <br>
                 <button ng-disabled="edit_course_form.course_title.$invalid" ng-click="addOrUpdateCourse()" class="btn btn-default">Сохранить</button>
