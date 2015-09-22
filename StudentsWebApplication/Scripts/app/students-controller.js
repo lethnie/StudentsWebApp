@@ -16,11 +16,14 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
                         return false;
                     }
                 });
-                $.each($scope.students_courses, function (i) {
+                i = 0;
+                while (($scope.students_courses.length > i)) {
                     if ($scope.students_courses[i].IdStudent == $scope.selectedStudent.Id) {
                         $scope.students_courses.splice(i, 1);
+                        i--;
                     }
-                });
+                    i++;
+                }
             })
             .error(function () {
                 alertMessage(false, "<strong>Ошибка!</strong> Студент не был удалён из базы данных.");
@@ -106,11 +109,14 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
                         return false;
                     }
                 });
-                $.each($scope.students_courses, function (i) {
+                i = 0;
+                while (($scope.students_courses.length > i)) {
                     if ($scope.students_courses[i].IdCourse == $scope.selectedCourse.Id) {
                         $scope.students_courses.splice(i, 1);
+                        i--;
                     }
-                });
+                    i++;
+                }
             })
 
             .error(function () {
@@ -232,6 +238,7 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
                 disableEditor();
                 return ;
             }
+            i++;
         }
         $http.post('/api/studentscourses/', $scope.selectedStudentCourse)
             .success(function (data) {
