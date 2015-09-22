@@ -197,16 +197,24 @@
                 </button>
             </form>
 
-            <form id="edit_student_course_form" class="container div-style div-editor-style" style="visibility:hidden">
+            <form id="edit_student_course_form" name="edit_student_course_form" class="container div-style div-editor-style" style="visibility:hidden" novalidate>
                 Студент:<br>
-                <select class="form-control" ng-model="selectedStudentCourse.IdStudent"
-                        ng-options="s.Id as s.Name for s in students"></select>
+                <select class="form-control" name="student_select" ng-model="selectedStudentCourse.IdStudent"
+                        ng-options="s.Id as s.Name for s in students" required></select>
                 <br>
                 Предмет:<br>
-                <select class="form-control" ng-model="selectedStudentCourse.IdCourse"
-                        ng-options="s.Id as s.Title for s in courses"></select>
-                <br><br>
-                <button ng-click="addOrUpdateStudentCourse()" class="btn btn-default">Сохранить</button>
+                <select class="form-control" name="course_select" ng-model="selectedStudentCourse.IdCourse"
+                        ng-options="s.Id as s.Title for s in courses" required></select>
+                <br>
+                <div class="alert alert-danger" ng-show="!(edit_student_course_form.student_select.$dirty) ||
+                      !(edit_student_course_form.course_select.$dirty)">
+                    Необходимо выбрать студента и предмет.
+                </div><br>
+                <button ng-disabled="!(edit_student_course_form.student_select.$dirty) ||
+                      !(edit_student_course_form.course_select.$dirty)"
+                        ng-click="addOrUpdateStudentCourse()" class="btn btn-default">
+                    Сохранить
+                </button>
                 <button ng-click="editStudentCourseCancel()"
                         class="btn btn-default">
                     Отмена

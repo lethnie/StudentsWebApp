@@ -16,5 +16,8 @@ alertMessage = function (success, message) {
     else {
         alertType = "alert-danger";
     }
-    $('#alert-block').append("<div class='alert alert-margins " + alertType + " fade in'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><p>" + message + "</p></div>");
+    $('#alert-block').append("<div class='alert alert-margins "
+        + alertType +
+        " fade in'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><p>"
+        + message + "</p></div>");
 }
