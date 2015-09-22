@@ -16,6 +16,12 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
                         return false;
                     }
                 });
+                $.each($scope.students_courses, function (i) {
+                    if ($scope.students_courses[i].IdStudent == $scope.selectedStudent.Id) {
+                        $scope.students_courses.splice(i, 1);
+                        return false;
+                    }
+                });
             })
             .error(function () {
                 alertMessage(false, "<strong>Ошибка!</strong> Студент не был удалён из базы данных.");
@@ -30,6 +36,12 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
                 $.each($scope.students, function (i) {
                     if ($scope.students[i].Id == $scope.selectedStudent.Id) {
                         $scope.students[i] = $scope.selectedStudent;
+                        return false;
+                    }
+                });
+                $.each($scope.students_courses, function (i) {
+                    if ($scope.students_courses[i].IdStudent == $scope.selectedStudent.Id) {
+                        $scope.students_courses[i].Name = $scope.selectedStudent.Name;
                         return false;
                     }
                 });
@@ -54,7 +66,7 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         disableEditor();
     };
     $scope.editStudent = function (student) {
-        $scope.selectedStudent = student;
+        $scope.selectedStudent = { Name: student.Name, Age: student.Age, Id: student.Id };
         enableEditor();
         $('#edit_student_form').css('visibility', 'visible');
     };
@@ -96,7 +108,14 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
                         return false;
                     }
                 });
+                $.each($scope.students_courses, function (i) {
+                    if ($scope.students_courses[i].IdCourse == $scope.selectedCourse.Id) {
+                        $scope.students_courses.splice(i, 1);
+                        return false;
+                    }
+                });
             })
+
             .error(function () {
                 alertMessage(false, "<strong>Ошибка!</strong> Курс не был удалён из базы данных.");
             });
@@ -110,6 +129,12 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
                 $.each($scope.courses, function (i) {
                     if ($scope.courses[i].Id == $scope.selectedCourse.Id) {
                         $scope.courses[i] = $scope.selectedCourse;
+                        return false;
+                    }
+                });
+                $.each($scope.students_courses, function (i) {
+                    if ($scope.students_courses[i].IdCourse == $scope.selectedCourse.Id) {
+                        $scope.students_courses[i].Title = $scope.selectedCourse.Title;
                         return false;
                     }
                 });
@@ -134,7 +159,7 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         disableEditor();
     };
     $scope.editCourse = function (course) {
-        $scope.selectedCourse = course;
+        $scope.selectedCourse = { Title: course.Title, Lecturer: course.Lecturer, Id: course.Id };
         enableEditor();
         $('#edit_course_form').css('visibility', 'visible');
     };
@@ -220,7 +245,9 @@ app.controller('StudController', ['$scope', '$http', function ($scope, $http) {
         $('#edit_student_course_form').css('visibility', 'visible');
     };
     $scope.newStudentCourse = function () {
-        $scope.selectedStudentCourse = { IdStudent: -1, IdCourse: -1, Id: -1 };
+        idSt = $scope.students[0].Id;
+        idC = $scope.courses[0].Id;
+        $scope.selectedStudentCourse = { IdStudent: idSt, IdCourse: idC, Id: -1 };
         enableEditor();
         $('#edit_student_course_form').css('visibility', 'visible');
     };

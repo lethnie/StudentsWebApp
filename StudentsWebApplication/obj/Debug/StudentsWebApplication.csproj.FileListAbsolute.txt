@@ -2,12 +2,14 @@ D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\S
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\StudentsWebApplication.dll
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\StudentsWebApplication.pdb
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\EntityFramework.dll
+D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\EntityFramework.Extended.dll
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\EntityFramework.SqlServer.dll
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\Newtonsoft.Json.dll
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\System.Net.Http.Formatting.dll
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\System.Web.Http.dll
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\System.Web.Http.WebHost.dll
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\EntityFramework.xml
+D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\EntityFramework.Extended.xml
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\EntityFramework.SqlServer.xml
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\Newtonsoft.Json.xml
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\System.Net.Http.Formatting.xml
@@ -15,6 +17,3 @@ D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\S
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\System.Web.Http.WebHost.xml
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\obj\Debug\StudentsWebApplication.dll
 D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\obj\Debug\StudentsWebApplication.pdb
-D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\obj\Debug\StudentsWebApplication.csprojResolveAssemblyReference.cache
-D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\EntityFramework.Extended.dll
-D:\Учёба\Проекты\StudentsWebApplication\StudentsWebApplication\bin\EntityFramework.Extended.xml

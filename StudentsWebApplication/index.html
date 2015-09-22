@@ -127,7 +127,8 @@
                         <tr>
                             <td>
                                 <button class="btn btn-default"
-                                        ng-click="newStudentCourse()">
+                                        ng-click="newStudentCourse()"
+                                        ng-disabled="(students.length == 0) || (courses.length == 0)">
                                     Добавить
                                 </button>
                             </td>
@@ -141,7 +142,7 @@
         <div id="editForms" class="div-background-style">
             <form id="edit_student_form" class="container div-style div-editor-style" style="visibility:hidden" name="edit_student_form" novalidate>
                 ФИО:<br>
-                <input type="text" class="form-control" ng-model="selectedStudent.Name"><br>
+                <input type="text" class="form-control" name="student_name" ng-model="selectedStudent.Name" required><br>
                 Возраст:<br>
                 <input type="number" class="form-control" name="age" ng-model="selectedStudent.Age" ng-pattern="/^[0-9]{0,3}$/" min="1" max="100">
                 <br>
@@ -149,9 +150,12 @@
                       edit_student_form.age.$invalid">
                     <strong>Ошибка!</strong> Указан неверный возраст.
                 </div>
+                <div class="alert alert-danger" ng-show="edit_student_form.student_name.$invalid">
+                    <strong>Ошибка!</strong> Необходимо указать имя студента.
+                </div>
                 <br>
                 <button ng-disabled="edit_student_form.age.$dirty &&
-                    edit_student_form.age.$invalid" ng-click="addOrUpdateStudent()" class="btn btn-default">
+                    edit_student_form.age.$invalid || edit_student_form.student_name.$invalid" ng-click="addOrUpdateStudent()" class="btn btn-default">
                     Сохранить
                 </button>
                 <button ng-click="editStudentCancel()"
@@ -172,13 +176,17 @@
                 </button>
             </form>
 
-            <form id="edit_course_form" class="container div-style div-editor-style" style="visibility:hidden">
+            <form id="edit_course_form" name="edit_course_form"  class="container div-style div-editor-style" style="visibility:hidden" novalidate>
                 Предмет:<br>
-                <input type="text" class="form-control" ng-model="selectedCourse.Title"><br>
+                <input type="text" class="form-control" name="course_title" ng-model="selectedCourse.Title" required><br>
                 Преподаватель:<br>
                 <input type="text" class="form-control" ng-model="selectedCourse.Lecturer">
-                <br><br>
-                <button ng-click="addOrUpdateCourse()" class="btn btn-default">Сохранить</button>
+                <br>
+                <div class="alert alert-danger" ng-show="edit_course_form.course_title.$invalid">
+                    <strong>Ошибка!</strong> Необходимо указать название курса.
+                </div>
+                <br>
+                <button ng-disabled="edit_course_form.course_title.$invalid" ng-click="addOrUpdateCourse()" class="btn btn-default">Сохранить</button>
                 <button ng-click="editCourseCancel()"
                         class="btn btn-default">
                     Отмена
@@ -199,19 +207,17 @@
 
             <form id="edit_student_course_form" name="edit_student_course_form" class="container div-style div-editor-style" style="visibility:hidden" novalidate>
                 Студент:<br>
-                <select class="form-control" name="student_select" ng-model="selectedStudentCourse.IdStudent"
+                <select class="form-control" name="studentSelect" ng-model="selectedStudentCourse.IdStudent"
                         ng-options="s.Id as s.Name for s in students" required></select>
                 <br>
                 Предмет:<br>
-                <select class="form-control" name="course_select" ng-model="selectedStudentCourse.IdCourse"
+                <select class="form-control" name="courseSelect" ng-model="selectedStudentCourse.IdCourse"
                         ng-options="s.Id as s.Title for s in courses" required></select>
                 <br>
-                <div class="alert alert-danger" ng-show="!(edit_student_course_form.student_select.$dirty) ||
-                      !(edit_student_course_form.course_select.$dirty)">
+                <div class="alert alert-danger" ng-show="edit_student_course_form.studentSelect.$error.required || edit_student_course_form.courseSelect.$error.required">
                     Необходимо выбрать студента и предмет.
                 </div><br>
-                <button ng-disabled="!(edit_student_course_form.student_select.$dirty) ||
-                      !(edit_student_course_form.course_select.$dirty)"
+                <button ng-disabled="edit_student_course_form.studentSelect.$error.required || edit_student_course_form.courseSelect.$error.required"
                         ng-click="addOrUpdateStudentCourse()" class="btn btn-default">
                     Сохранить
                 </button>
